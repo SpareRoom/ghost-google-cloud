@@ -10,7 +10,7 @@ jobs:
       - run:
           name: build
           command: docker build -t spareroom/ghost-google-cloud:$CIRCLE_BUILD_NUM -t spareroom/ghost-google-cloud:latest .
-      - push:
+      - run:
           name: push
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
