@@ -11,7 +11,9 @@ jobs:
           name: push
           command: |
             TAG=$CIRCLE_BUILD_NUM
+            docker -v
             docker build -t spareroom/ghost-google-cloud:$TAG -t spareroom/ghost-google-cloud:latest .
+            docker images
             docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
             docker push spareroom/ghost-google-cloud:$TAG
             docker push spareroom/ghost-google-cloud:latest
