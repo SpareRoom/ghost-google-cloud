@@ -19,4 +19,4 @@ workflows:
   build:
     jobs:
       - build_docker_image
-        context: org-global
+          context: org-global
