@@ -13,7 +13,7 @@ jobs:
       - run:
           name: push
           command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker login --username $DOCKER_USER --password $DOCKER_PASS
             docker push spareroom/ghost-google-cloud:$CIRCLE_BUILD_NUM
             docker push spareroom/ghost-google-cloud:latest
 
