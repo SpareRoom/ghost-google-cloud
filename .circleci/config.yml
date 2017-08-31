@@ -3,7 +3,7 @@ jobs:
   build_docker_image:
     working_directory: /tmp/build
     docker:
-      - image: circleci/build-image
+      - image: circleci/node:8
     steps:
       - checkout
       - setup_remote_docker
