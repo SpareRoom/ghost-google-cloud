@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    working_directory: /tmp/build
+    docker:
+      - image: circleci/build-image
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: docker build .
