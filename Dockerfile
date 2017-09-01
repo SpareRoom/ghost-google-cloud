@@ -66,7 +66,7 @@ WORKDIR /usr/src/ghost/content/storage/gcloud
 RUN  cp -r /usr/src/ghost/node_modules/ghost-google-cloud-storage/* /usr/src/ghost/content/storage/gcloud \
     && npm install gcloud util bluebird \
 	&& chmod a+x /usr/src/ghost/core/server/storage \
-    && chmod a+x /usr/src/ghost/core/server/data \
+    && chmod a+rwx /usr/src/ghost/core/server/data \
     && chmod a+x /usr/src/ghost/core/server/storage/base.js \
     && chown -R root:root /usr/src/ghost/
 
