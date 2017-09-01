@@ -46,15 +46,13 @@ RUN mkdir -p "$GHOST_CONTENT" \
         && ln -s "$GHOST_CONTENT/config.js" "$GHOST_SOURCE/config.js"
 VOLUME $GHOST_CONTENT
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
-
 EXPOSE 2368
 
 WORKDIR /usr/src/ghost/
 
-COPY docker-entrypoint.sh /entrypoint.sh
-RUN chown user /entrypoint.sh \
+COPY docker-entrypoint.sh /tmp/entrypoint.sh
+RUN mv /tmp/entrypoint.sh /entrypoint.sh \
+  && chown user /entrypoint.sh \
   && chmod u+x /entrypoint.sh \
   && mkdir -p /usr/src/ghost/content/storage \
   && npm i ghost-google-cloud-storage

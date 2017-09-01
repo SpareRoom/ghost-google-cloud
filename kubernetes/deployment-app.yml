@@ -11,9 +11,53 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-google-cloud:29
+        image: tegud/docker-ghost-mysql-aws:gcloud
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
-      imagePullSecrets:
-        - name: spareroomdockercredentials
+        volumeMounts:
+          - name: cloud-storage-credentials
+            mountPath: /secrets/cloudstorage
+            readOnly: true
+        env:
+        - name: GHOST_DB
+          value: "blog"
+        - name: GHOST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
+        - name: GHOST_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        - name: GHOST_DB_HOST
+          value: "127.0.0.1"
+      - image: gcr.io/cloudsql-docker/gce-proxy:1.09
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=api-project-274440984329:europe-west2:ghost=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/secret.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName:
+                cloudsql-instance-credentials
+        - name: cloud-storage-credentials
+          secret:
+            secretName:
+                cloud-storage-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:
