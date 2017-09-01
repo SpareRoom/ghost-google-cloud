@@ -54,7 +54,8 @@ EXPOSE 2368
 WORKDIR /usr/src/ghost/
 
 COPY docker-entrypoint.sh /entrypoint.sh
-RUN chmod u+x /entrypoint.sh \
+RUN chown user /entrypoint.sh \
+  && chmod u+x /entrypoint.sh \
   && mkdir -p /usr/src/ghost/content/storage \
   && npm i ghost-google-cloud-storage
 
