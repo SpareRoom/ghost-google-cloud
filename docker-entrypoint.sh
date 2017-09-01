@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 if [ ! -e "$GHOST_CONTENT/apps" ]; then
 	echo "Initializing the Ghost application..."
