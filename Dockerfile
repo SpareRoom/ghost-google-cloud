@@ -55,7 +55,6 @@ WORKDIR /usr/src/ghost/
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chown user /entrypoint.sh \
-  && chown user /usr/src/ghost/content/data \
   && chmod u+x /entrypoint.sh \
   && mkdir -p /usr/src/ghost/content/storage \
   && npm i ghost-google-cloud-storage
@@ -66,7 +65,8 @@ WORKDIR /usr/src/ghost/content/storage/gcloud
 
 RUN  cp -r /usr/src/ghost/node_modules/ghost-google-cloud-storage/* /usr/src/ghost/content/storage/gcloud \
     && npm install gcloud util bluebird \
-    && chmod a+x /usr/src/ghost/core/server/storage \
+	&& chmod a+x /usr/src/ghost/core/server/storage \
+    && chmod a+x /usr/src/ghost/core/server/data \
     && chmod a+x /usr/src/ghost/core/server/storage/base.js \
     && chown -R root:root /usr/src/ghost/
 
