@@ -55,6 +55,7 @@ WORKDIR /usr/src/ghost/
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chown user /entrypoint.sh \
+  && chown user /usr/src/ghost/content/data \
   && chmod u+x /entrypoint.sh \
   && mkdir -p /usr/src/ghost/content/storage \
   && npm i ghost-google-cloud-storage
