@@ -11,26 +11,22 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: tegud/docker-ghost-mysql-aws:gcloud
+        image: spareroom/ghost-google-cloud:33
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
-        volumeMounts:
-          - name: cloud-storage-credentials
-            mountPath: /secrets/cloudstorage
-            readOnly: true
         env:
         - name: GHOST_DB
           value: "blog"
         - name: GHOST_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: cloudsql-db-credentials
+              name: spareroomussqldb
               key: password
         - name: GHOST_USER
           valueFrom:
             secretKeyRef:
-              name: cloudsql-db-credentials
+              name: spareroomussqldb
               key: username
         - name: GHOST_DB_HOST
           value: "127.0.0.1"
@@ -38,7 +34,7 @@ spec:
         name: cloudsql-proxy
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
                   "-instances=api-project-274440984329:europe-west2:ghost=tcp:3306",
-                  "-credential_file=/secrets/cloudsql/secret.json"]
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-instance-credentials
             mountPath: /secrets/cloudsql
@@ -51,11 +47,7 @@ spec:
         - name: cloudsql-instance-credentials
           secret:
             secretName:
-                cloudsql-instance-credentials
-        - name: cloud-storage-credentials
-          secret:
-            secretName:
-                cloud-storage-credentials
+                spareroomussql
         - name: ssl-certs
           hostPath:
             path: /etc/ssl/certs
