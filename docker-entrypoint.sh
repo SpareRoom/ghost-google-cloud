@@ -12,15 +12,13 @@ if [ ! -e "$GHOST_CONTENT/apps" ]; then
 			fi
 		done
 
-		if [ ! -e "$GHOST_SOURCE/config.js" ]; then
-			sed -r "
-				s/GHOST_DB_HOST/$GHOST_DB_HOST/g;
-				s/GHOST_DB/$GHOST_DB/g;
-				s/GHOST_USER/$GHOST_USER/g;
-				s/GHOST_PASSWORD/$GHOST_PASSWORD/g;
-				s!path.join\(__dirname, (.)/content!path.join(process.env.GHOST_CONTENT, \1!g;
-			" "$GHOST_SOURCE/config.js" > "$GHOST_SOURCE/config.js"
-		fi
+		sed -r "
+			s/GHOST_DB_HOST/$GHOST_DB_HOST/g;
+			s/GHOST_DB/$GHOST_DB/g;
+			s/GHOST_USER/$GHOST_USER/g;
+			s/GHOST_PASSWORD/$GHOST_PASSWORD/g;
+			s!path.join\(__dirname, (.)/content!path.join(process.env.GHOST_CONTENT, \1!g;
+		" "$GHOST_SOURCE/config.js" > "$GHOST_SOURCE/config.js"
 
 		chown -R user "$GHOST_CONTENT"
 
