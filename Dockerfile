@@ -38,6 +38,9 @@ RUN set -ex; \
 	rm ghost.zip;
 
 ENV GHOST_CONTENT /var/lib/ghost
+
+COPY config.js /usr/src/ghost/config.js
+
 RUN mkdir -p "$GHOST_CONTENT" \
         && chown -R user:user "$GHOST_CONTENT" \
 # Ghost expects "config.js" to be in $GHOST_SOURCE, but it's more useful for
@@ -56,8 +59,6 @@ RUN mv /tmp/entrypoint.sh /entrypoint.sh \
   && chmod u+x /entrypoint.sh \
   && mkdir -p /usr/src/ghost/content/storage \
   && npm i ghost-google-cloud-storage
-
-COPY config.js /config-example.js
 
 WORKDIR /usr/src/ghost/content/storage/gcloud
 
