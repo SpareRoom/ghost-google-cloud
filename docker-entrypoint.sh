@@ -19,7 +19,7 @@ if [ ! -e "$GHOST_CONTENT/apps" ]; then
 			s/GHOST_USER/$GHOST_USER/g;
 			s/GHOST_PASSWORD/$GHOST_PASSWORD/g;
 			s!path.join\(__dirname, (.)/content!path.join(process.env.GHOST_CONTENT, \1!g;
-		" "$GHOST_SOURCE/config.js" > "$GHOST_SOURCE/config.js"
+		" "/config.js" > "$GHOST_SOURCE/config.js"
 
 		chown -R user "$GHOST_CONTENT"
 

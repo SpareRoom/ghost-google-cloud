@@ -39,7 +39,7 @@ RUN set -ex; \
 
 ENV GHOST_CONTENT /var/lib/ghost
 
-COPY config.js /usr/src/ghost/config.js
+COPY config.js /config.js
 
 RUN mkdir -p "$GHOST_CONTENT" \
         && chown -R user:user "$GHOST_CONTENT"
