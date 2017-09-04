@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-google-cloud:39
+        image: spareroom/ghost-google-cloud:40
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
