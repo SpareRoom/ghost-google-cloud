@@ -42,11 +42,7 @@ ENV GHOST_CONTENT /var/lib/ghost
 COPY config.js /usr/src/ghost/config.js
 
 RUN mkdir -p "$GHOST_CONTENT" \
-        && chown -R user:user "$GHOST_CONTENT" \
-# Ghost expects "config.js" to be in $GHOST_SOURCE, but it's more useful for
-# image users to manage that as part of their $GHOST_CONTENT volume, so we
-# symlink.
-        && ln -s "$GHOST_CONTENT/config.js" "$GHOST_SOURCE/config.js"
+        && chown -R user:user "$GHOST_CONTENT"
 VOLUME $GHOST_CONTENT
 
 EXPOSE 2368
