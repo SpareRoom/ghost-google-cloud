@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: ghost-ingress
 spec:
+  tls:
+    - secretName: spareroomcomtls
   backend:
     serviceName: ghost
     servicePort: 80

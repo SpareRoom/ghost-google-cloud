@@ -11,13 +11,21 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-google-cloud:42
+        image: spareroom/ghost-google-cloud:43
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
+        volumeMounts:
+          - name: cloud-storage-credentials
+            mountPath: /secrets/cloudstorage
+            readOnly: true
         env:
         - name: GHOST_DB
           value: "ghost-spareroom-us"
+        - name: GHOST_ASSETS_PROJECT
+          value: "spareroom-blogs"
+        - name: GHOST_ASSETS_BUCKET
+          value: "ghost-spareroom-us-assets"
         - name: GHOST_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -51,7 +59,7 @@ spec:
         - name: cloud-storage-credentials
           secret:
             secretName:
-                cloud-storage-credentials
+                spareroomusassets
         - name: ssl-certs
           hostPath:
             path: /etc/ssl/certs

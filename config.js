@@ -20,9 +20,9 @@ config = {
         storage: {
             active: 'gcloud',
             'gcloud': {
-                projectId: 'spareroom-blogs',
+                projectId: 'GHOST_ASSETS_PROJECT',
                 key: '/secrets/cloudstorage/credentials.json',
-                bucket: 'ghost-spareroom-us-assets'
+                bucket: 'GHOST_ASSETS_BUCKET'
             }
         },
         server: {
