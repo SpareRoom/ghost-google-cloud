@@ -17,6 +17,14 @@ config = {
                 charset: 'utf8'
             }
         },
+        storage: {
+            active: 'gcloud',
+            'gcloud': {
+                projectId: 'spareroom-blogs',
+                key: '/secrets/cloudstorage/credentials.json',
+                bucket: 'ghost-spareroom-us-assets'
+            }
+        },
         server: {
             host: '0.0.0.0',
             port: '2368'

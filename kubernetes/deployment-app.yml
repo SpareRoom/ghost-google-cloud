@@ -11,13 +11,13 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-google-cloud:41
+        image: spareroom/ghost-google-cloud:42
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
         env:
         - name: GHOST_DB
-          value: "blog"
+          value: "ghost-spareroom-us"
         - name: GHOST_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -33,8 +33,8 @@ spec:
       - image: gcr.io/cloudsql-docker/gce-proxy:1.09
         name: cloudsql-proxy
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-                  "-instances=api-project-274440984329:europe-west2:ghost=tcp:3306",
-                  "-credential_file=/secrets/cloudsql/credentials.json"]
+                    "-instances=spareroom-blogs:europe-west1:ghost-db=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-instance-credentials
             mountPath: /secrets/cloudsql
@@ -48,6 +48,10 @@ spec:
           secret:
             secretName:
                 spareroomussql
+        - name: cloud-storage-credentials
+          secret:
+            secretName:
+                cloud-storage-credentials
         - name: ssl-certs
           hostPath:
             path: /etc/ssl/certs
