@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-google-cloud:43
+        image: spareroom/ghost-blog-us:8
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
@@ -51,6 +51,8 @@ spec:
             mountPath: /etc/ssl/certs
           - name: cloudsql
             mountPath: /cloudsql
+      imagePullSecrets:
+        - name: spareroomdockercredentials
       volumes:
         - name: cloudsql-instance-credentials
           secret:

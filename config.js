@@ -6,7 +6,7 @@ config = {
     // When running Ghost in the wild, use the production environment.
     // Configure your URL and mail settings here
     production: {
-        url: 'http://blog.example.com',
+        url: 'GHOST_DB_HOST',
         database: {
             client: 'mysql',
             connection: {
