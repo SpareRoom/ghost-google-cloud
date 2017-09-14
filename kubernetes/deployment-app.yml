@@ -12,6 +12,12 @@ spec:
       containers:
       - name: ghost
         image: spareroom/ghost-blog-us:8
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 2368
+          initialDelaySeconds: 3
+          periodSeconds: 3
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
@@ -41,7 +47,7 @@ spec:
       - image: gcr.io/cloudsql-docker/gce-proxy:1.09
         name: cloudsql-proxy
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-                    "-instances=spareroom-blogs:europe-west1:ghost-db=tcp:3306",
+                    "-instances=spareroom-blogs:europe-west2:ghost=tcp:3306",
                     "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-instance-credentials
