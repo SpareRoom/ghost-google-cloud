@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-blog-us:8
+        image: spareroom/ghost-blog-us:9
         livenessProbe:
           httpGet:
             path: /
@@ -26,6 +26,8 @@ spec:
             mountPath: /secrets/cloudstorage
             readOnly: true
         env:
+        - name: GHOST_URL
+          value: "http://blog.spareroom.com"
         - name: GHOST_DB
           value: "ghost-spareroom-us"
         - name: GHOST_ASSETS_PROJECT
