@@ -7,6 +7,14 @@ config = {
     // Configure your URL and mail settings here
     production: {
         url: 'GHOST_URL',
+        mail: {
+            from: 'GHOST_EMAIL_FROM',
+            transport: 'SES',
+            options: {
+                AWSAccessKeyID: "GHOST_EMAIL_KEY",
+                AWSSecretKey: "GHOST_EMAIL_SECRET"
+            }
+        },
         database: {
             client: 'mysql',
             connection: {
