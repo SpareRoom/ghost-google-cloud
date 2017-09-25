@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-blog-us:10
+        image: spareroom/ghost-blog-us:11
         livenessProbe:
           httpGet:
             path: /
@@ -46,6 +46,18 @@ spec:
               key: username
         - name: GHOST_DB_HOST
           value: "127.0.0.1"
+        - name: GHOST_EMAIL_FROM
+          value: "no-reply@spareroom.com"
+        - name: GHOST_EMAIL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: spareroomusemail
+              key: key
+        - name: GHOST_EMAIL_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: spareroomusemail
+              key: secret
       - image: gcr.io/cloudsql-docker/gce-proxy:1.09
         name: cloudsql-proxy
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",

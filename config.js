@@ -11,6 +11,7 @@ config = {
             from: 'GHOST_EMAIL_FROM',
             transport: 'SES',
             options: {
+                region: "GHOST_EMAIL_REGION",
                 AWSAccessKeyID: "GHOST_EMAIL_KEY",
                 AWSSecretKey: "GHOST_EMAIL_SECRET"
             }
