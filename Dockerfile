@@ -16,7 +16,9 @@ RUN set -x \
 ENV GHOST_SOURCE /usr/src/ghost
 WORKDIR $GHOST_SOURCE
 
-ENV GHOST_VERSION 0.11.10
+ENV GHOST_VERSION 0.11.11
+
+COPY ghost-slashes.patch .
 
 RUN set -ex; \
 	\
@@ -33,6 +35,8 @@ RUN set -ex; \
 	wget -O ghost.zip "https://github.com/TryGhost/Ghost/releases/download/${GHOST_VERSION}/Ghost-${GHOST_VERSION}.zip"; \
 	unzip ghost.zip; \
 	\
+        patch -p1 <ghost-slashes.patch; \
+        \
 	npm install --production; \
 	\
 	rm ghost.zip;
