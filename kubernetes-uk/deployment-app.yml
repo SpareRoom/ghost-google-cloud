@@ -18,6 +18,7 @@ spec:
             port: 2368
           initialDelaySeconds: 3
           periodSeconds: 3
+          timeoutSeconds: 30
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
@@ -27,7 +28,7 @@ spec:
             readOnly: true
         env:
         - name: GHOST_URL
-          value: "https://blog.spareroom.co.uk"
+          value: "http://blog.spareroom.co.uk"
         - name: GHOST_DB
           value: "ghost-spareroom-uk"
         - name: GHOST_ASSETS_PROJECT
