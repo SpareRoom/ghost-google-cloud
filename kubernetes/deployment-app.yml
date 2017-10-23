@@ -58,6 +58,8 @@ spec:
             secretKeyRef:
               name: spareroomusemail
               key: secret
+        - name: GHOST_EMAIL_REGION
+          value: "eu-west-1"
       - image: gcr.io/cloudsql-docker/gce-proxy:1.09
         name: cloudsql-proxy
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
