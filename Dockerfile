@@ -36,6 +36,7 @@ RUN set -ex; \
 	unzip ghost.zip; \
 	\
         patch -p1 <ghost-slashes.patch; \
+        patch -p1 <ghost-slack-events.patch; \
         \
 	npm install --production; \
 	\

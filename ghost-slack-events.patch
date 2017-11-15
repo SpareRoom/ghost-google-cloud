@@ -1,0 +1,11 @@
+diff -dur ghost-0.11.12-a/core/server/data/slack/index.js ghost-0.11.12-b/core/server/data/slack/index.js
+--- ghost-0.11.12-a/core/server/data/slack/index.js     2017-10-12 19:17:38.000000000 +0100
++++ ghost-0.11.12-b/core/server/data/slack/index.js     2017-11-15 10:41:28.903367708 +0000
+@@ -101,6 +101,8 @@
+ 
+ function listen() {
+     events.on('post.published', listener);
++    events.on('post.unpublished', listener);
++    events.on('post.published.edited', listener);
+     events.on('slack.test', testPing);
+ }
