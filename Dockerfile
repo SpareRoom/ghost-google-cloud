@@ -19,6 +19,7 @@ WORKDIR $GHOST_SOURCE
 ENV GHOST_VERSION 0.11.12
 
 COPY ghost-slashes.patch .
+COPY ghost-slack-events.patch .
 
 RUN set -ex; \
 	\
