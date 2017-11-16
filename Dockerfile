@@ -18,7 +18,6 @@ WORKDIR $GHOST_SOURCE
 
 ENV GHOST_VERSION 0.11.12
 
-COPY ghost-slashes.patch .
 COPY ghost-slack-events.patch .
 
 RUN set -ex; \
@@ -36,7 +35,6 @@ RUN set -ex; \
 	wget -O ghost.zip "https://github.com/TryGhost/Ghost/releases/download/${GHOST_VERSION}/Ghost-${GHOST_VERSION}.zip"; \
 	unzip ghost.zip; \
 	\
-        patch -p1 <ghost-slashes.patch; \
         patch -p1 <ghost-slack-events.patch; \
         \
 	npm install --production; \
