@@ -11,14 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost-uk
-        image: spareroom/ghost-blog-uk:11
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 2368
-          initialDelaySeconds: 3
-          periodSeconds: 3
-          timeoutSeconds: 30
+        image: spareroom/ghost-blog-uk:46
         ports:
         - containerPort: 2368
         imagePullPolicy: Always

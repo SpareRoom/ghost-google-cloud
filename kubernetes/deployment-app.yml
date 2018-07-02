@@ -11,13 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-blog-us:11
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 2368
-          initialDelaySeconds: 3
-          periodSeconds: 3
+        image: spareroom/ghost-blog-us:36
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
