@@ -1,4 +1,4 @@
-FROM ghost:1.22.4
+FROM ghost:1.24.8
 
 ADD ./storage.js /tmp/storage.js
 
