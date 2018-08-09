@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost-uk
-        image: spareroom/ghost-blog-uk:49
+        image: spareroom/ghost-blog-uk:50
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
