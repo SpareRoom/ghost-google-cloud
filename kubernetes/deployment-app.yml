@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: spareroom/ghost-blog-us:42
+        image: eu.gcr.io/spareroom-blogs/ghost-blog-us:<%= current_sha %>
         ports:
         - containerPort: 2368
         imagePullPolicy: Always
