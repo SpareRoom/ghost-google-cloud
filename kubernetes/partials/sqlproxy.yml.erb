@@ -1,0 +1,13 @@
+image: gcr.io/cloudsql-docker/gce-proxy:<%= proxy_ver %>
+name: cloudsql-proxy
+command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+  "-instances=<%= instances %>",
+  "-credential_file=/secrets/cloudsql/credentials.json"]
+volumeMounts:
+  - name: cloudsql-instance-credentials
+    mountPath: /secrets/cloudsql
+    readOnly: true
+  - name: ssl-certs
+    mountPath: /etc/ssl/certs
+  - name: cloudsql
+    mountPath: /cloudsql

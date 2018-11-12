@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: <%= name %>
+spec:
+  tls:
+    - secretName: <%= ssl_cert_secret %>
+  backend:
+    serviceName: <%= service %>
+    servicePort: <%= port %>
