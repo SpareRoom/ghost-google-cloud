@@ -30,12 +30,12 @@ env:
   value: "<%= email_from %>"
 - name: mail__transport
   value: SES
-- name: mail__options__auth__user
+- name: mail__options__accessKeyId
   valueFrom:
     secretKeyRef:
       name: spareroomemail
       key: key
-- name: mail__options__auth__pass
+- name: mail__options__secretAccessKey
   valueFrom:
     secretKeyRef:
       name: spareroomemail
