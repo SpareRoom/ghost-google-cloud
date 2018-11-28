@@ -1,11 +1,7 @@
-- name: cloudsql-instance-credentials
+- name: serviceaccount
   secret:
     secretName:
-        spareroomsqlcreds
-- name: cloud-storage-credentials
-  secret:
-    secretName:
-        spareroomassetscreds
+        serviceaccount
 - name: ssl-certs
   hostPath:
     path: /etc/ssl/certs

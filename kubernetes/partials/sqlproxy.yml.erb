@@ -4,7 +4,7 @@ command: ["/cloud_sql_proxy", "--dir=/cloudsql",
   "-instances=<%= instances %>",
   "-credential_file=/secrets/cloudsql/credentials.json"]
 volumeMounts:
-  - name: cloudsql-instance-credentials
+  - name: serviceaccount
     mountPath: /secrets/cloudsql
     readOnly: true
   - name: ssl-certs

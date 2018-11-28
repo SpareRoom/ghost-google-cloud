@@ -4,7 +4,7 @@ ports:
 - containerPort: 2368
 imagePullPolicy: Always
 volumeMounts:
-- name: cloud-storage-credentials
+- name: serviceaccount
   mountPath: /secrets/cloudstorage
   readOnly: true
 env:
@@ -46,7 +46,5 @@ env:
   value: gcloud
 - name: storage__gcloud__key
   value: /secrets/cloudstorage/credentials.json
-- name: storage__gcloud__projectId
-  value: "<%= assets_project %>"
 - name: storage__gcloud__bucket
   value: "<%= assets_bucket %>"
