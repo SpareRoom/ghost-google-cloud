@@ -1,0 +1,20 @@
+---
+<%= partial "ingress", name: "ghost-blog-ingress", service: "ghost-blog", port: 80, ssl_cert_secret: "spareroomcoukcert2018" %>
+---
+<%= partial "service", name: "ghost-blog", app: "ghost-blog" %>
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ghost-blog
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ghost-blog
+    spec:
+      containers:
+      - <%= partial "app", image: "eu.gcr.io/spareroom-blogs/ghost-blog-uk", url: "http://blog.spareroom.co.uk", db: "ghost-spareroom-uk", assets_bucket: "uk-assets-blogs-production-spareroom", email_from: "no-reply@spareroom.co.uk", email_region: "eu-west-1" %>
+      - <%= partial "sqlproxy", proxy_ver: "1.09", instances: "spareroom-blogs-production:europe-west2:ghost=tcp:3306" %>
+      volumes: <%= partial "volumes" %>
