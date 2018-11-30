@@ -1,0 +1,9 @@
+- name: serviceaccount
+  secret:
+    secretName:
+        serviceaccount
+- name: ssl-certs
+  hostPath:
+    path: /etc/ssl/certs
+- name: cloudsql
+  emptyDir:

@@ -9,14 +9,13 @@ jobs:
       - setup_remote_docker
       - run:
           name: build
-          command: docker build -t spareroom/ghost-google-cloud:$CIRCLE_BUILD_NUM -t spareroom/ghost-google-cloud:latest .
+          command: docker build -t spareroom/ghost-google-cloud:v1-$CIRCLE_BUILD_NUM .
       - run:
           name: push
           command: |
             docker -v
             docker login --username $DOCKER_USER --password $DOCKER_PASS
-            docker push spareroom/ghost-google-cloud:$CIRCLE_BUILD_NUM
-            docker push spareroom/ghost-google-cloud:latest
+            docker push spareroom/ghost-google-cloud:v1-$CIRCLE_BUILD_NUM
 workflows:
   version: 2
   build:

@@ -1,0 +1,50 @@
+name: ghost-blog
+image: <%= image %>:<%= current_sha %>
+ports:
+- containerPort: 2368
+imagePullPolicy: Always
+volumeMounts:
+- name: serviceaccount
+  mountPath: /secrets/cloudstorage
+  readOnly: true
+env:
+- name: url
+  value: "<%= url %>"
+- name: database__client
+  value: mysql
+- name: database__connection__host
+  value: "127.0.0.1"
+- name: database__connection__database
+  value: "<%= db %>"
+- name: database__connection__user
+  valueFrom:
+    secretKeyRef:
+      name: spareroomblogsqldb
+      key: username
+- name: database__connection__password
+  valueFrom:
+    secretKeyRef:
+      name: spareroomblogsqldb
+      key: password
+- name: mail__from
+  value: "<%= email_from %>"
+- name: mail__transport
+  value: SES
+- name: mail__options__accessKeyId
+  valueFrom:
+    secretKeyRef:
+      name: spareroomemail
+      key: key
+- name: mail__options__secretAccessKey
+  valueFrom:
+    secretKeyRef:
+      name: spareroomemail
+      key: secret
+- name: mail__options__region
+  value: "<%= email_region %>"
+- name: storage__active
+  value: gcloud
+- name: storage__gcloud__key
+  value: /secrets/cloudstorage/credentials.json
+- name: storage__gcloud__bucket
+  value: "<%= assets_bucket %>"
