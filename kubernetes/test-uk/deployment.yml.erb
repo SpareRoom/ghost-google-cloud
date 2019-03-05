@@ -1,5 +1,5 @@
 ---
-<%= partial "ingress", name: "ghost-blog-ingress", service: "ghost-blog", port: 80, ssl_cert_secret: "spareroomcoukcert2018" %>
+<%= partial "ingress", name: "ghost-blog-ingress", service: "ghost-blog", port: 80, ssl_cert_secret: "spareroomcoukcert" %>
 ---
 <%= partial "service", name: "ghost-blog", app: "ghost-blog" %>
 ---
