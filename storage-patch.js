@@ -1,17 +1,13 @@
-// this package had a bug that made it unusable.
-// forked it and fixed and submitted a PR
-//module.exports = require('ghost-google-cloud-storage');
-// but for now...
-
 'use strict';
 
-var storage = require('@google-cloud/storage'),
-    BaseStore = require('ghost-storage-base'),
-    Promise = require('bluebird'),
-    options = {};
+var storage     = require('@google-cloud/storage'),
+    BaseStore   = require('ghost-storage-base'),
+    path        = require('path'),
+    Promise     = require('bluebird'),
+    options     = {};
 
 class GStore extends BaseStore {
-    constructor(config = {}) {
+    constructor(config = {}){
         super(config);
         options = config;
 
@@ -22,7 +18,7 @@ class GStore extends BaseStore {
         this.bucket = gcs.bucket(options.bucket);
         this.assetDomain = options.assetDomain || `${options.bucket}.storage.googleapis.com`;
         // only set insecure from config if assetDomain is set
-        if (options.hasOwnProperty('assetDomain')) {
+        if(options.hasOwnProperty('assetDomain')){
             this.insecure = options.insecure;
         }
         // default max-age is 3600 for GCS, override to something more useful
@@ -33,25 +29,24 @@ class GStore extends BaseStore {
         if (!options) return Promise.reject('google cloud storage is not configured');
 
         var targetDir = this.getTargetDir(),
-            googleStoragePath = `http${this.insecure ? '' : 's'}://${this.assetDomain}/`,
-            targetFilename;
+        googleStoragePath = `http${this.insecure?'':'s'}://${this.assetDomain}/`,
+        targetFilename;
 
-        return new Promise((resolve, reject) => {
-            this.getUniqueFileName(image, targetDir).then(tf => {
-                targetFilename = tf;
-                var opts = {
-                    destination: targetFilename,
-                    metadata: {
-                        cacheControl: `public, max-age=${this.maxAge}`
-                    },
-                    public: true
-                };
-                return this.bucket.upload(image.path, opts);
-            }).then(function (data) {
-                return resolve(googleStoragePath + targetFilename);
-            }).catch(function (e) {
-                return reject(e);
-            });
+        return this.getUniqueFileName(image, targetDir).then(newFile => {
+            targetFilename = newFile;
+            var opts = {
+                destination: newFile,
+                metadata: {
+                    cacheControl: `public, max-age=${this.maxAge}`,
+                    contentType: image.type
+                },
+                public: true
+            };
+            return this.bucket.upload(image.path, opts);
+        }).then(function (data) {
+            return googleStoragePath + targetFilename;
+        }).catch(function (e) {
+            return Promise.reject(e);
         });
     }
 
@@ -61,30 +56,36 @@ class GStore extends BaseStore {
         return function (req, res, next) { next(); };
     }
 
-    exists(filename) {
-        return new Promise((resolve, reject) => {
-            this.bucket.file(filename).exists().then(function (data) {
-                return resolve(data[0]);
-            });
-        });
+    exists (filename, targetDir) {
+        return this.bucket
+            .file(path.join(targetDir, filename))
+            .exists()
+            .then(function(data){
+                return data[0];
+            })
+            .catch(err => Promise.reject(err));
     }
 
-    read(filename) {
-        var rs = this.bucket.file(filename).createReadStream(), contents = '';
+    read (filename) {
+        var rs = this.bucket.file(filename).createReadStream(), contents = null;
         return new Promise(function (resolve, reject) {
-            rs.on('error', function (err) {
+            rs.on('error', function(err){
                 return reject(err);
             });
-            rs.on('data', function (data) {
-                contents += data;
+            rs.on('data', function(data){
+                if (contents) {
+                    contents = data;
+                } else {
+                    contents = Buffer.concat([contents, data]);
+                }
             });
-            rs.on('end', function () {
+            rs.on('end', function(){
                 return resolve(content);
             });
-        });
+      });
     }
 
-    delete(filename) {
+    delete (filename) {
         return this.bucket.file(filename).delete();
     }
 }
