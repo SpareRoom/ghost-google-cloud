@@ -15,6 +15,6 @@ spec:
         app: ghost-blog
     spec:
       containers:
-      - <%= partial "app", image: "eu.gcr.io/spareroom-blogs-production/engineering-blog", url: "http://engineering.spareroom.co.uk", db: "ghost-spareroom-eng", assets_bucket: "eng-assets-blogs-production-spareroom", email_from: "no-reply@spareroom.co.uk", email_region: "eu-west-1" %>
+      - <%= partial "app", image: "eu.gcr.io/spareroom-blogs-production/engineering-blog", url: "http://engineering.spareroom.co.uk", db: "ghost-spareroom-eng", assets_bucket: "eng-assets-blogs-production-spareroom", email_from: "no-reply@spareroom.co.uk", email_region: "eu-west-1", asset_domain: "eng-img.spareroom.co.uk" %>
       - <%= partial "sqlproxy", proxy_ver: "1.09", instances: "spareroom-blogs-production:europe-west2:ghost=tcp:3306" %>
       volumes: <%= partial "volumes" %>
