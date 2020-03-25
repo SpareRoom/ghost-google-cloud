@@ -37,10 +37,10 @@ class GStore extends BaseStore {
             var opts = {
                 destination: newFile,
                 metadata: {
-                    cacheControl: `public, max-age=${this.maxAge}`,
+                    cacheControl: `public, max-age=0, s-maxage=${this.maxAge}`,
                     contentType: image.type
                 },
-                public: true
+                private: true
             };
             return this.bucket.upload(image.path, opts);
         }).then(function (data) {

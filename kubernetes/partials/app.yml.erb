@@ -48,6 +48,8 @@ env:
   value: /secrets/cloudstorage/credentials.json
 - name: storage__gcloud__bucket
   value: "<%= assets_bucket %>"
+- name: storage__gcloud__maxAge
+  value: "31536000"
 <% if defined? asset_domain -%>
 - name: storage__gcloud__assetDomain
   value: "<%= asset_domain %>"

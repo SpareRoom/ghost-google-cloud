@@ -3,11 +3,14 @@
 ---
 <%= partial "service", name: "ghost-blog", app: "ghost-blog" %>
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ghost-blog
 spec:
+  selector:
+    matchLabels:
+      app: ghost-blog
   replicas: 1
   template:
     metadata:
